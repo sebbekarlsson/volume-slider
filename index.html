@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='UTF-8'/>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel="stylesheet" href='./css/style.css'>
+        <link rel="stylesheet" href='./lib/nouislider.min.css'>
+        <script src='./lib/nouislider.min.js'></script>
+    </head>
+    <body>
+        <div class='view-ranger'>
+            <div id='ranger'></div>
+            <p>volume: <span id='volume-value'></span>%</p>
+        </div>
+
+        <script>
+            var keyboardSlider = document.getElementById('ranger');
+            var volumeValue = document.getElementById('volume-value');
+
+            noUiSlider.create(keyboardSlider, {
+                start: 10,
+                step: 10,
+                start: 0,
+                range: {
+                    'min': 0,
+                    'max': 100
+                }
+            });
+
+        
+        const system = require('system-control')();
+
+
+keyboardSlider.noUiSlider.on('update', function( values, handle ){
+    system.audio.setSystemVolume(values[handle]).then(function(volume){
+        volumeValue.innerText = values[handle];
+    })
+});
+ 
+system.audio.getSystemVolume().then(function(volume) {
+    keyboardSlider.noUiSlider.set(volume);  // here comes your code 
+    volumeValue.innerText = volume;
+});
+                
+
+    </script>
+    </body>
+</html>
+

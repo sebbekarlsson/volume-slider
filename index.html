@@ -28,21 +28,22 @@
             });
 
         
-        const system = require('system-control')();
+            const system = require('system-control')();
+            
 
 
-keyboardSlider.noUiSlider.on('update', function( values, handle ){
-    system.audio.setSystemVolume(values[handle]).then(function(volume){
-        volumeValue.innerText = values[handle];
-    })
-});
- 
-system.audio.getSystemVolume().then(function(volume) {
-    keyboardSlider.noUiSlider.set(volume);  // here comes your code 
-    volumeValue.innerText = volume;
-});
-                
-
+            document.addEventListener('DOMContentLoaded', function() {
+                keyboardSlider.noUiSlider.on('update', function( values, handle ){
+                    system.audio.setSystemVolume(values[handle]).then(function(volume){
+                        volumeValue.innerText = values[handle];
+                    })
+                });
+                 
+                system.audio.getSystemVolume().then(function(volume) {
+                    keyboardSlider.noUiSlider.set(volume);  // here comes your code 
+                    volumeValue.innerText = volume;
+                });
+            });
     </script>
     </body>
 </html>
